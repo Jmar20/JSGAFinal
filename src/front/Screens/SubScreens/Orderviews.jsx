@@ -202,39 +202,53 @@ export function Orderviews() {
 
             {showMandilesPanel && (
                 <div className="modal-t">
-                    <div className="modal-p">
+                    <div className="modal-ps">
                         <h2>Seleccionar Mandiles</h2>
-                        <select
-                            className="modal-select"
-                            value={selectedMandiles}
-                            onChange={(e) => setSelectedMandiles([...e.target.selectedOptions].map(option => option.value))}
-                            multiple
-                        >
-                            {mandiles.map(mandil => (
-                                <option key={mandil._id} value={mandil._id}>
-                                    {mandil._id} - {mandil.color}
-                                </option>
-                            ))}
-                        </select>
-
-                        <label>Estado del Pedido:</label>
-                        <select
-                            className="modal-select"
-                            value={estado}
-                            onChange={(e) => setEstado(e.target.value)}
-                        >
-                            <option value="pendiente">Pendiente</option>
-                            <option value="en_proceso">En Proceso</option>
-                            <option value="completado">Completado</option>
-                            <option value="cancelado">Cancelado</option>
-                        </select>
-
-                        <button onClick={handleSubmit}>Guardar Pedido</button>
-                        <button onClick={() => setShowMandilesPanel(false)}>Cancelar</button>
+                        <form>
+                            <div className="row-modal">
+                                <label>RUC:</label>
+                                <input
+                                    type="text"
+                                    className="modal-select"
+                                    value={ruc}
+                                    onChange={(e) => setRuc(e.target.value)}
+                                />
+                            </div>
+                            <div className="row-modal">
+                                <select
+                                    className="modal-select"
+                                    value={selectedMandiles}
+                                    onChange={(e) => setSelectedMandiles([...e.target.selectedOptions].map(option => option.value))}
+                                    multiple
+                                >
+                                    {mandiles.map(mandil => (
+                                        <option key={mandil._id} value={mandil._id}>
+                                            {mandil._id} - {mandil.color}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="row-modal">
+                                <label>Estado del Pedido:</label>
+                                <select
+                                    className="modal-select"
+                                    value={estado}
+                                    onChange={(e) => setEstado(e.target.value)}
+                                >
+                                    <option value="pendiente">Pendiente</option>
+                                    <option value="en_proceso">En Proceso</option>
+                                    <option value="completado">Completado</option>
+                                    <option value="cancelado">Cancelado</option>
+                                </select>
+                            </div>
+                            <div className="row-modal">
+                                <button className="button-aceptar" onClick={handleSubmit}>Guardar Pedido</button>
+                                <button className="button-cancelar" onClick={() => setShowMandilesPanel(false)}>Cancelar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             )}
         </div>
     );
 }
-export default Orderviews;
