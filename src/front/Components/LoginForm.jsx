@@ -26,7 +26,7 @@ export function LoginForm() {
             });
 
             console.log('Inicio de sesión exitoso:', response.data);
-            navigate('/menu'); 
+            navigate('/menu/clientes'); 
         } catch (err) {
             setError(err.response?.data?.message || 'Error de red o en el servidor');
             console.error('Error en el inicio de sesión:', err);
