@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const navItems = ["Home", "Clientes", "Ordenes", "Inventario", "Informes"];
 
 export function Navbar() {
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     const handleLogout = async () => {
         try {
@@ -15,7 +15,7 @@ export function Navbar() {
 
             document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=pyfjs.onrender.com; Secure; HttpOnly; SameSite=None";
 
-            navigate('/#login');
+            navigate('/login'); 
         } catch (error) {
             console.error('Error al cerrar sesión:', error.response?.data?.message || 'Error');
         }
@@ -36,4 +36,5 @@ export function Navbar() {
         </div>
     );
 }
+
 export default Navbar;

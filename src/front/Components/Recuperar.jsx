@@ -1,50 +1,45 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate para redirigir
+import { useNavigate } from 'react-router-dom';
 
 export function Recuperar() {
     const [email, setEmail] = useState('');
-    const [codigo, setCodigo] = useState('');
+    const [claveAccesoUser, setClaveAccesoUser] = useState('');
     const [nuevaContrasena, setNuevaContrasena] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
-    const navigate = useNavigate(); // Inicializa el hook para la navegación
+    const navigate = useNavigate();
 
-    const cambiarContrasena = async () => {
-        setMessage(''); // Resetear mensaje antes de enviar solicitud
-        setError(''); // Resetear error antes de enviar solicitud
+    const handleForgotPassword = async () => {
+        setMessage('');
+        setError('');
+
         try {
-            if (claveAcceso === Usercodigo) { // Compara el valor de la clave de acceso
-                const response = await axios.post('https://pyfjs.onrender.com/api/auth/cambiarContrasena', {
-                    email,
-                    nuevaContrasena,
-                    claveAcceso: Usercodigo
-                });
-                setMessage(response.data.message || 'Contraseña cambiada exitosamente');
-                setTimeout(() => {
-                    navigate('/login'); // Redirige a la página de login
-                }, 2000); // Espera 2 segundos antes de redirigir
-            } else {
-                setError('La clave de acceso es incorrecta');
-            }
-        } catch (error) {
-            setError(error.response?.data?.message || 'Error al cambiar la contraseña');
+            const response = await axios.post('https://pyfjs.onrender.com/api/auth/solicitarCambioContrasena', {
+                email,
+            });
+            setMessage(response.data.message || 'Una clave de acceso ha sido enviada a tu correo electrónico.');
+        } catch (err) {
+            setError(err.response?.data?.message || 'Error al solicitar el cambio de contraseña.');
         }
     };
 
-    const handleForgotPassword = async () => {
-        setMessage(''); 
-        setError(''); 
+    const cambiarContrasena = async () => {
+        setMessage('');
+        setError('');
 
         try {
-            await axios.post('https://pyfjs.onrender.com/api/auth/solicitarCambioContrasena', {
-                email
+            const response = await axios.post('https://pyfjs.onrender.com/api/auth/cambiarContrasena', {
+                email,
+                nuevaContrasena,
+                claveAccesoUser,
             });
-            setMessage('Una clave de acceso ha sido enviada a tu correo electrónico.');
-            const claveAcceso = response.data.claveAcceso;
-            setClaveAcceso(claveAcceso); 
+            setMessage(response.data.message || 'Contraseña cambiada exitosamente.');
+            setTimeout(() => {
+                navigate('/login'); 
+            }, 2000);
         } catch (err) {
-            setError(err.response?.data?.message || 'Error al solicitar el cambio de contraseña');
+            setError(err.response?.data?.message || 'Error al cambiar la contraseña.');
         }
     };
 
@@ -67,12 +62,12 @@ export function Recuperar() {
                                     />
                                 </div>
                                 <div className="mb-3">
-                                    <label className="form-label">Código:</label>
+                                    <label className="form-label">Clave de Acceso:</label>
                                     <input
                                         type="text"
                                         className="form-control"
-                                        value={codigo}
-                                        onChange={(e) => setCodigo(e.target.value)}
+                                        value={claveAccesoUser}
+                                        onChange={(e) => setClaveAccesoUser(e.target.value)}
                                         required
                                     />
                                 </div>
@@ -86,10 +81,18 @@ export function Recuperar() {
                                         required
                                     />
                                 </div>
-                                <button type="button" className="btn btn-primary w-100" onClick={cambiarContrasena}>
+                                <button
+                                    type="button"
+                                    className="btn btn-primary w-100"
+                                    onClick={cambiarContrasena}
+                                >
                                     Cambiar Contraseña
                                 </button>
-                                <button type="button" className="btn btn-secondary w-100 mt-2" onClick={handleForgotPassword}>
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary w-100 mt-2"
+                                    onClick={handleForgotPassword}
+                                >
                                     Enviar Correo de Recuperación
                                 </button>
                             </form>
@@ -102,6 +105,5 @@ export function Recuperar() {
         </div>
     );
 }
-
 
 export default Recuperar;

@@ -9,27 +9,29 @@ export function LoginForm() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [infoMessage, setInfoMessage] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         setError('');
+        setLoading(true);
 
         try {
             const response = await axios.post('https://pyfjs.onrender.com/api/auth/login', {
                 email,
                 password
             }, {
-                withCredentials: true // Permite el envío de cookies
+                withCredentials: true 
             });
 
             console.log('Inicio de sesión exitoso:', response.data);
-
-
-            navigate('/menu'); // Navega a la página de menú después del inicio de sesión exitoso
+            navigate('/menu'); 
         } catch (err) {
-            setError(err.response?.data?.message || 'Error en el inicio de sesión');
+            setError(err.response?.data?.message || 'Error de red o en el servidor');
             console.error('Error en el inicio de sesión:', err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -42,9 +44,9 @@ export function LoginForm() {
                 email
             });
             setInfoMessage('Una clave de acceso ha sido enviada a tu correo electrónico.');
-            navigate('/recuperar');
+            navigate('/#/recuperar');
         } catch (err) {
-            setError(err.response?.data?.message || 'Error al solicitar el cambio de contraseña');
+            setError(err.response?.data?.message || 'Error de red o en el servidor');
             console.error('Error al solicitar el cambio de contraseña:', err);
         }
     };
@@ -57,15 +59,17 @@ export function LoginForm() {
             <div className="solo-form-container">
                 <form className="loginForm" onSubmit={handleSubmit}>
                     <legend>Iniciar Sesión</legend>
-                    <label className="labelForm">Email:</label>
+                    <label htmlFor="email" className="labelForm">Email:</label>
                     <input
+                        id="email"
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     />
-                    <label className="labelForm">Contraseña:</label>
+                    <label htmlFor="password" className="labelForm">Contraseña:</label>
                     <input
+                        id="password"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -73,15 +77,15 @@ export function LoginForm() {
                     />
                     {error && <div className="error-message">{error}</div>}
                     {infoMessage && <div className="info-message">{infoMessage}</div>}
-                    {/* <button type="button" className="linksForm saliente" onClick={handleForgotPassword}>
-                        Olvidé mi contraseña
-                    </button> */}
                     <div className='linksc'>
-                    <a href="/#recuperar" className="linksForm">
-                        Olvidé mi contraseña
-                    </a></div>
-                    <button type="submit">Iniciar sesión</button>
-                    <label>¿Aún no tienes una cuenta? <a href="/#register">Regístrate</a></label>
+                        <a href="#/recuperar" className="linksForm">
+                            Olvidé mi contraseña
+                        </a>
+                    </div>
+                    <button type="submit" disabled={loading}>
+                        {loading ? 'Cargando...' : 'Iniciar sesión'}
+                    </button>
+                    <label>¿Aún no tienes una cuenta? <a href="#/register">Regístrate</a></label>
                 </form>
             </div>
         </>
