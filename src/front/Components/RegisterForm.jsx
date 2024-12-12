@@ -74,3 +74,5 @@ export function RegisterForm() {
     </>
   );
 }
+
+export default RegisterForm;

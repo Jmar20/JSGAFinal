@@ -77,13 +77,15 @@ export function LoginForm() {
                         Olvidé mi contraseña
                     </button> */}
                     <div className='linksc'>
-                    <a href="/recuperar" className="linksForm">
+                    <a href="/#recuperar" className="linksForm">
                         Olvidé mi contraseña
                     </a></div>
                     <button type="submit">Iniciar sesión</button>
-                    <label>¿Aún no tienes una cuenta? <a href="/register">Regístrate</a></label>
+                    <label>¿Aún no tienes una cuenta? <a href="/#register">Regístrate</a></label>
                 </form>
             </div>
         </>
     );
 }
+
+export default LoginForm;

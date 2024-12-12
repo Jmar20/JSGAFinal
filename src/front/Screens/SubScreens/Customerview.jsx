@@ -209,3 +209,5 @@ export function Customerview() {
         </>
     );
 }
+
+export default Customerview;

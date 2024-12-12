@@ -65,3 +65,6 @@ export function Homeview() {
         </>
     )
 }
+
+
+export default Homeview;

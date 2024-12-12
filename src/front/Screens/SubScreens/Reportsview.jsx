@@ -185,3 +185,5 @@ export function Reportsview() {
         </>
     );
 }
+
+export default Reportsview;

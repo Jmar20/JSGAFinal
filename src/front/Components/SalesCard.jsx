@@ -11,3 +11,5 @@ export function SalesCard({Title, Subtitle, Img}) {
         </div>
     )
 }
+
+export default SalesCard;

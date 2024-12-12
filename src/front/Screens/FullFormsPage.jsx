@@ -12,3 +12,5 @@ export function FullFormsPage({ formType }) {
         </>
     );
 }
+
+export default FullFormsPage;

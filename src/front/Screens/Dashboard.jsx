@@ -25,3 +25,5 @@ export function Dashboard({ rightType }) {
         </>
     )
 }
+
+export default Dashboard;

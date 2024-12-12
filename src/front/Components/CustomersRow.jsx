@@ -10,3 +10,5 @@ export function CustomersRow({ RUC, Customer, Email, Phonenumber}) {
         </tr>
     );
 }
+
+export default CustomersRow;

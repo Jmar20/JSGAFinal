@@ -4,9 +4,9 @@ export function NavItem({ locate}) {
   const name = locate.toLowerCase();
   let direction;
   if (name === "home") {
-    direction = "/menu";
+    direction = "/#/menu";
   }else{
-    direction = `/menu/${name}`;
+    direction = `/#/menu/${name}`;
   }
 
   return (
@@ -14,3 +14,5 @@ export function NavItem({ locate}) {
   );
 }
 
+
+export default NavItem;

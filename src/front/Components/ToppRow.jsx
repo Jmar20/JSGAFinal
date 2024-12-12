@@ -12,3 +12,5 @@ export function ToppRow({Number, Producto, Ventas}) {
         </tr>
     )
 }
+
+export default ToppRow;

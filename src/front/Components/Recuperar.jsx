@@ -14,30 +14,35 @@ export function Recuperar() {
         setMessage(''); // Resetear mensaje antes de enviar solicitud
         setError(''); // Resetear error antes de enviar solicitud
         try {
-            const response = await axios.post('https://pyfjs.onrender.com/api/auth/cambiarContrasena', {
-                email,
-                nuevaContrasena,
-                claveAcceso:Usercodigo // Usa el nombre correcto esperado por tu backend
-            });
-            setMessage(response.data.message || 'Contraseña cambiada exitosamente');
-            // Redirigir al login después de cambiar la contraseña
-            setTimeout(() => {
-                navigate('/login'); // Redirige a la página de login
-            }, 2000); // Espera 2 segundos antes de redirigir
+            if (claveAcceso === Usercodigo) { // Compara el valor de la clave de acceso
+                const response = await axios.post('https://pyfjs.onrender.com/api/auth/cambiarContrasena', {
+                    email,
+                    nuevaContrasena,
+                    claveAcceso: Usercodigo
+                });
+                setMessage(response.data.message || 'Contraseña cambiada exitosamente');
+                setTimeout(() => {
+                    navigate('/login'); // Redirige a la página de login
+                }, 2000); // Espera 2 segundos antes de redirigir
+            } else {
+                setError('La clave de acceso es incorrecta');
+            }
         } catch (error) {
             setError(error.response?.data?.message || 'Error al cambiar la contraseña');
         }
     };
 
     const handleForgotPassword = async () => {
-        setMessage(''); // Resetear mensaje antes de enviar solicitud
-        setError(''); // Resetear error antes de enviar solicitud
+        setMessage(''); 
+        setError(''); 
 
         try {
             await axios.post('https://pyfjs.onrender.com/api/auth/solicitarCambioContrasena', {
                 email
             });
             setMessage('Una clave de acceso ha sido enviada a tu correo electrónico.');
+            const claveAcceso = response.data.claveAcceso;
+            setClaveAcceso(claveAcceso); 
         } catch (err) {
             setError(err.response?.data?.message || 'Error al solicitar el cambio de contraseña');
         }
@@ -97,3 +102,6 @@ export function Recuperar() {
         </div>
     );
 }
+
+
+export default Recuperar;

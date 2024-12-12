@@ -244,3 +244,5 @@ export function Inventoryview() {
         </>
     );
 }
+
+export default Inventoryview;

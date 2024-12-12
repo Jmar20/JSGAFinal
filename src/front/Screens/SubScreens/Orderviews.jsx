@@ -237,3 +237,4 @@ export function Orderviews() {
         </div>
     );
 }
+export default Orderviews;
