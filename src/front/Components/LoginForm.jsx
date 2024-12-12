@@ -45,6 +45,7 @@ export function LoginForm() {
             });
             setInfoMessage('Una clave de acceso ha sido enviada a tu correo electrónico.');
             navigate('/#/recuperar');
+            
         } catch (err) {
             setError(err.response?.data?.message || 'Error de red o en el servidor');
             console.error('Error al solicitar el cambio de contraseña:', err);
