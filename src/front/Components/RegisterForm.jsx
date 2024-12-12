@@ -68,7 +68,7 @@ export function RegisterForm() {
           />
           {error && <p className="error">{error}</p>} 
           <button type="submit">Regístrate</button>
-          <label>¿Ya tienes una cuenta? <a href="/login">Iniciar Sesión</a></label>
+          <label>¿Ya tienes una cuenta? <a href="#/login">Iniciar Sesión</a></label>
         </form>
       </div>
     </>
