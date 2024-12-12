@@ -2,7 +2,7 @@ import { NavItem } from './NavItem';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const navItems = ["Home", "Clientes", "Ordenes", "Inventario", "Informes"];
+const navItems = ["Clientes", "Ordenes", "Inventario", "Informes"];
 
 export function Navbar() {
     const navigate = useNavigate();

@@ -2,7 +2,6 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { FullFormsPage } from './Screens/FullFormsPage';
 import { Dashboard } from './Screens/Dashboard';
-import PrivateRoute from './Components/PrivateRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
@@ -11,11 +10,11 @@ const App = () => {
             <Route path="/login" element={<FullFormsPage formType="login" />} />
             <Route path="/register" element={<FullFormsPage formType="register" />} />
             <Route path="/recuperar" element={<FullFormsPage formType="recuperar" />} />
-            <Route path="/menu" element={<PrivateRoute><Dashboard rightType="home" /></PrivateRoute>} />
-            <Route path="/menu/clientes" element={<PrivateRoute><Dashboard rightType="clientes" /></PrivateRoute>} />
-            <Route path="/menu/ordenes" element={<PrivateRoute><Dashboard rightType="ordenes" /></PrivateRoute>} />
-            <Route path="/menu/inventario" element={<PrivateRoute><Dashboard rightType="inventario" /></PrivateRoute>} />
-            <Route path="/menu/informes" element={<PrivateRoute><Dashboard rightType="informes" /></PrivateRoute>} />
+            <Route path="/menu" element={<Dashboard rightType="home" />} />
+            <Route path="/menu/clientes" element={<Dashboard rightType="clientes" />} />
+            <Route path="/menu/ordenes" element={<Dashboard rightType="ordenes" />} />
+            <Route path="/menu/inventario" element={<Dashboard rightType="inventario" />} />
+            <Route path="/menu/informes" element={<Dashboard rightType="informes" />} />
         </Routes>
     );
 };

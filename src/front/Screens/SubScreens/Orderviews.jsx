@@ -214,6 +214,7 @@ export function Orderviews() {
                                     onChange={(e) => setRuc(e.target.value)}
                                 />
                             </div>
+                            <div><label className="white">*Se debe elegir un mandil.</label></div>
                             <div className="row-modal">
                                 <select
                                     className="modal-select"

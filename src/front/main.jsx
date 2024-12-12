@@ -9,7 +9,6 @@ import CustomersRow from './Components/CustomersRow';
 import LoginForm from './Components/LoginForm';
 import Navbar from './Components/Navbar';
 import NavItem from './Components/NavItem';
-import PrivateRoute from './Components/PrivateRoute';
 import Recuperar from './Components/Recuperar';
 import RegisterForm from './Components/RegisterForm';
 import Reports from './Components/Reports';
@@ -18,7 +17,6 @@ import ToppRow from './Components/ToppRow';
 
 // Screens
 import Customerview from './Screens/SubScreens/Customerview';
-import Homeview from './Screens/SubScreens/Homeview';
 import Inventoryview from './Screens/SubScreens/Inventoryview';
 import Orderviews from './Screens/SubScreens/Orderviews';
 import Reportsview from './Screens/SubScreens/Reportsview';
@@ -32,11 +30,11 @@ const router = createHashRouter([
   { path: '/login', element: <FullFormsPage formType="login" /> },
   { path: '/register', element: <FullFormsPage formType="register" /> },
   { path: '/recuperar', element: <FullFormsPage formType="recuperar" /> },
-  { path: '/menu', element: <PrivateRoute><Dashboard rightType="home" /></PrivateRoute> },
-  { path: '/menu/clientes', element: <PrivateRoute><Dashboard rightType="clientes" /></PrivateRoute> },
-  { path: '/menu/ordenes', element: <PrivateRoute><Dashboard rightType="ordenes" /></PrivateRoute> },
-  { path: '/menu/inventario', element: <PrivateRoute><Dashboard rightType="inventario" /></PrivateRoute> },
-  { path: '/menu/informes', element: <PrivateRoute><Dashboard rightType="informes" /></PrivateRoute> }
+  { path: '/menu', element: <Dashboard rightType="clientes" /> },
+  { path: '/menu/clientes', element: <Dashboard rightType="clientes" /> },
+  { path: '/menu/ordenes', element: <Dashboard rightType="ordenes" /> },
+  { path: '/menu/inventario', element: <Dashboard rightType="inventario" /> },
+  { path: '/menu/informes', element: <Dashboard rightType="informes" /> }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
