@@ -34,7 +34,7 @@ export function Orderviews() {
     const fetchMandiles = async () => {
         try {
             const response = await axios.get('https://pyfjs.onrender.com/api/mandil/mandiles', {
-                params: { estado: 'false' },
+                params: { estado: false },
                 withCredentials: true,
             });
             setMandiles(response.data);
@@ -78,7 +78,7 @@ export function Orderviews() {
         setSelectedOrder(order);
         setRuc(order.ruc);
         setEstado(order.estado);
-        setSelectedMandiles(order.mandiles.map(mandil => mandil.id)); // Prellenar mandiles seleccionados
+        setSelectedMandiles(order.mandiles.map(mandil => mandil.id)); 
         setIsEditing(true);
         setShowMandilesPanel(true);
     };
@@ -201,55 +201,55 @@ export function Orderviews() {
             </table>
 
             {showMandilesPanel && (
-                <div className="modal-t">
-                    <div className="modal-ps">
-                        <h2>Seleccionar Mandiles</h2>
-                        <form>
-                            <div className="row-modal">
-                                <label>RUC:</label>
-                                <input
-                                    type="text"
-                                    className="modal-select"
-                                    value={ruc}
-                                    onChange={(e) => setRuc(e.target.value)}
-                                />
-                            </div>
-                            <div><label className="white">*Se debe elegir un mandil.</label></div>
-                            <div className="row-modal">
-                                <select
-                                    className="modal-select"
-                                    value={selectedMandiles}
-                                    onChange={(e) => setSelectedMandiles([...e.target.selectedOptions].map(option => option.value))}
-                                    multiple
-                                >
-                                    {mandiles.map(mandil => (
-                                        <option key={mandil._id} value={mandil._id}>
-                                            {mandil._id} - {mandil.color}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className="row-modal">
-                                <label>Estado del Pedido:</label>
-                                <select
-                                    className="modal-select"
-                                    value={estado}
-                                    onChange={(e) => setEstado(e.target.value)}
-                                >
-                                    <option value="pendiente">Pendiente</option>
-                                    <option value="en_proceso">En Proceso</option>
-                                    <option value="completado">Completado</option>
-                                    <option value="cancelado">Cancelado</option>
-                                </select>
-                            </div>
-                            <div className="row-modal">
-                                <button className="button-aceptar" onClick={handleSubmit}>Guardar Pedido</button>
-                                <button className="button-cancelar" onClick={() => setShowMandilesPanel(false)}>Cancelar</button>
-                            </div>
-                        </form>
-                    </div>
+    <div className="modal-t">
+        <div className="modal-ps">
+            <h2>Seleccionar Mandiles</h2>
+            <form>
+                <div className="row-modal">
+                    <label>RUC:</label>
+                    <input
+                        type="text"
+                        className="modal-select"
+                        value={ruc}
+                        onChange={(e) => setRuc(e.target.value)}
+                    />
                 </div>
-            )}
+                <div><label className="white">*Se debe elegir un mandil.</label></div>
+                <div className="row-modal">
+                    <select
+                        className="modal-select"
+                        value={selectedMandiles}
+                        onChange={(e) => setSelectedMandiles([...e.target.selectedOptions].map(option => option.value))}
+                        multiple
+                    >
+                        {mandiles.filter(mandil => mandil.estado === false).map(mandil => (
+                            <option key={mandil.id} value={mandil.id}>
+                                {mandil.id} - {mandil.color}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="row-modal">
+                    <label>Estado del Pedido:</label>
+                    <select
+                        className="modal-select"
+                        value={estado}
+                        onChange={(e) => setEstado(e.target.value)}
+                    >
+                        <option value="pendiente">Pendiente</option>
+                        <option value="en_proceso">En Proceso</option>
+                        <option value="completado">Completado</option>
+                        <option value="cancelado">Cancelado</option>
+                    </select>
+                </div>
+                <div className="row-modal">
+                    <button className="button-aceptar" onClick={handleSubmit}>Guardar Pedido</button>
+                    <button className="button-cancelar" onClick={() => setShowMandilesPanel(false)}>Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+)}
         </div>
     );
 }

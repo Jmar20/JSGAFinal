@@ -38,29 +38,30 @@ export function Reportsview() {
         }
     };
 
-    // Función para obtener todos los mandiles y agrupar por color
     const fetchMandilDataAll = async () => {
         try {
             const response = await axios.get('https://pyfjs.onrender.com/api/mandil/mandiles', { withCredentials: true });
             const mandiles = response.data;
-
+    
+            // Filtrar mandiles con estado true
+            const mandilesTrue = mandiles.filter(mandil => mandil.estado === true);
+    
             // Agrupar mandiles por color
-            const mandilCounts = mandiles.reduce((acc, mandil) => {
+            const mandilCounts = mandilesTrue.reduce((acc, mandil) => {
                 acc[mandil.color] = (acc[mandil.color] || 0) + 1;
                 return acc;
             }, {});
-
+    
             const data = Object.keys(mandilCounts).map(color => ({
                 name: color,
                 value: mandilCounts[color],
             }));
-
-            setMandilDataAll(data);
+    
+            setMandilDataAll(data); // Cambia esto a setMandilDataAll
         } catch (error) {
             console.error("Error fetching mandil data (all):", error);
         }
     };
-
     // Función para obtener la cantidad de pedidos por mes
     const fetchPedidosPorMes = async () => {
         try {
@@ -106,6 +107,12 @@ export function Reportsview() {
         }
     };
 
+const colorMapping = {
+    rojo: '#FF0000',   // Rojo
+    azul: '#0000FF',   // Azul
+    rosa: '#FFC0CB',   // Rosa
+    verde: '#008000'    // Verde
+};
     return (
         <>
             <Helmet>
@@ -115,49 +122,48 @@ export function Reportsview() {
                 <h1>Informes</h1>
             </div>
             <div className="full-width-container" style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
-                <div className="big-card" style={{ margin: '10px' }}>
-                    <h2>Gráfico de Mandiles por Color (Más Vendidos)</h2>
-                    <PieChart width={400} height={400}>
-                        <Pie
-                            data={mandilDataTrue}
-                            cx={200}
-                            cy={200}
-                            labelLine={false}
-                            label={entry => entry.name}
-                            outerRadius={80}
-                            fill="#8884d8"
-                            dataKey="value"
-                        >
-                            {mandilDataTrue.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} />
-                            ))}
-                        </Pie>
-                        <Tooltip />
-                        <Legend />
-                    </PieChart>
-                </div>
-                <div className="big-card" style={{ margin: '10px' }}>
-                    <h2>Gráfico de Mandiles por Color (Más Producidos)</h2>
-                    <PieChart width={400} height={400}>
-                        <Pie
-                            data={mandilDataAll}
-                            cx={200}
-                            cy={200}
-                            labelLine={false}
-                            label={entry => entry.name}
-                            outerRadius={80}
-                            fill="#82ca9d"
-                            dataKey="value"
-                        >
-                            {mandilDataAll.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`} />
-                            ))}
-                        </Pie>
-                        <Tooltip />
-                        <Legend />
-                    </PieChart>
-                </div>
-
+            <div className="big-card" style={{ margin: '10px' }}>
+                <h2>Gráfico de Mandiles por Color (Más Vendidos)</h2>
+                <PieChart width={400} height={400}>
+                    <Pie
+                        data={mandilDataTrue}
+                        cx={200}
+                        cy={200}
+                        labelLine={false}
+                        label={entry => entry.name}
+                        outerRadius={80}
+                        fill="#8884d8"
+                        dataKey="value"
+                    >
+                        {mandilDataTrue.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={colorMapping[entry.name] || '#8884d8'} /> // Asigna colores según el mapeo
+                        ))}
+                    </Pie>
+                    <Tooltip />
+                    <Legend />
+                </PieChart>
+            </div>
+            <div className="big-card" style={{ margin: '10px' }}>
+                <h2>Gráfico de Mandiles por Color (Más Producidos)</h2>
+                <PieChart width={400} height={400}>
+                    <Pie
+                        data={mandilDataAll}
+                        cx={200}
+                        cy={200}
+                        labelLine={false}
+                        label={entry => entry.name}
+                        outerRadius={80}
+                        fill="#82ca9d"
+                        dataKey="value"
+                    >
+                        {mandilDataAll.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={colorMapping[entry.name] || '#8884d8'} /> // Asigna colores según el mapeo
+                        ))}
+                    </Pie>
+                    <Tooltip />
+                    <Legend />
+                </PieChart>
+            </div>
 
                 {/* Gráfico de Líneas de Pedidos por Mes */}
                 <div className="big-card">
