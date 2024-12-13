@@ -6,7 +6,7 @@ export function NavItem({ locate}) {
   if (name === "home") {
     direction = "";
   }else{
-    direction = `/#/menu/${name}`;
+    direction = `JSGAFinal/#/menu/${name}`;
   }
 
   return (

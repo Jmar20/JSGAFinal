@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import App from './App.jsx';
 
 // Components
 import CustomersRow from './Components/CustomersRow';
@@ -24,7 +23,6 @@ import Dashboard from './Screens/Dashboard';
 import FullFormsPage from './Screens/FullFormsPage';
 
 const router = createHashRouter([
-  { path: '/', element: <App /> },
   { path: '/about', element: <div>About</div> },
   { path: '/contact', element: <div>Contact</div> },
   { path: '/login', element: <FullFormsPage formType="login" /> },
